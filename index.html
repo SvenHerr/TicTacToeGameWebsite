@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Example Name </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+.grid-container 
+{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
+.grid-item 
+{
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+button
+{
+margin: 1em;
+font-size: 2em;
+        
+}
+    </style>
+    
+    </head>
+    
+    <body>
+        <div class="grid-container">
+            <div id = "field1" class="grid-item" onclick="setField(0)">-</div>
+            <div id = "field2"class="grid-item" onclick="setField(1)">-</div>
+            <div id = "field3" class="grid-item" onclick="setField(2)">-</div>
+            <div id = "field4" class="grid-item" onclick="setField(3)">-</div>
+            <div id = "field5" class="grid-item" onclick="setField(4)">-</div>
+            <div id = "field6" class="grid-item" onclick="setField(5)">-</div>
+            <div id = "field7" class="grid-item" onclick="setField(6)">-</div>
+            <div id = "field8" class="grid-item" onclick="setField(7)">-</div>
+            <div id = "field9" class="grid-item" onclick="setField(8)">-</div>
+        </div>
+        <button id="btn-newGame">Neues Spiel</button>
+
+    </body>
+
+    <script>
+    var field = -1;
+    $("#btn-newGame").click(function()
+    {
+        setNewGame();
+    });
+        function setNewGame(){
+            document.getElementById("field1").innerHTML = "-"; 
+            document.getElementById("field2").innerHTML = "-";   
+            document.getElementById("field3").innerHTML = "-";   
+            document.getElementById("field4").innerHTML = "-";   
+            document.getElementById("field5").innerHTML = "-";   
+            document.getElementById("field6").innerHTML = "-";   
+            document.getElementById("field7").innerHTML = "-";   
+            document.getElementById("field8").innerHTML = "-";   
+            document.getElementById("field9").innerHTML = "-";   
+
+        }
+    function setField(number)
+    {
+        field = number;
+        if(field == 0)
+        {
+            document.getElementById("field1").innerHTML = "X";   
+        }
+        else if(field == 1)
+        {
+            document.getElementById("field2").innerHTML = "X";   
+        }
+        else if(field == 2)
+        {
+            document.getElementById("field3").innerHTML = "X";   
+        }
+        else if(field == 3)
+        {
+            document.getElementById("field4").innerHTML = "X";   
+        }
+        else if(field == 4)
+        {
+            document.getElementById("field5").innerHTML = "X";   
+        }
+        else if(field == 5)
+        {
+            document.getElementById("field6").innerHTML = "X";   
+        }
+        else if(field == 6)
+        {
+            document.getElementById("field7").innerHTML = "X";   
+        }
+        else if(field == 7)
+        {
+            document.getElementById("field8").innerHTML = "X";   
+        }
+        else if(field == 8)
+        {
+            document.getElementById("field9").innerHTML = "X";   
+        } 
+    };
+    </script>
+
+</html>
