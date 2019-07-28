@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
     <head>
         <meta charset="UTF-8">
         <title>TicTacToe Game</title>
@@ -27,6 +26,10 @@ margin: 1em;
 font-size: 2em;
      visibility: visible;   
 }
+label
+{
+    font-size: 2em;
+}
 
 #playerWins
 {
@@ -36,7 +39,8 @@ font-size: 2em;
     </style>
     
     </head>
-    
+    <h1>TicTacToe</h1>
+    <h2>Abwechseln auf ein leeres Feld klicken!</h2>
     <body>
         <div class="grid-container">
             <div id = "field1" class="grid-item" onclick="setField(0)">-</div>
@@ -58,13 +62,18 @@ font-size: 2em;
     <script>
     var field = -1;
     var fieldArray = []; 
-    var noValue = "-"; 
+    var emptyField = "-"; 
     var count = 0;  
     var gameEnds = false;
+    var player;
     const player1Sign = "X";
     const player2Sign = "O";
 
-    
+    $(function()
+    {
+        setNewGame(); 
+    })
+
     $("#btn-newGame").click(function()
     {
         setNewGame();
@@ -72,22 +81,23 @@ font-size: 2em;
         function setNewGame()
         {
             count = 0;
+            getPlayerIstAmZug();
             gameEnds = false;
             $("#playerWins").css("visibility", "hidden");
 
-            document.getElementById("field1").innerHTML = "-"; 
-            document.getElementById("field2").innerHTML = "-";   
-            document.getElementById("field3").innerHTML = "-";   
-            document.getElementById("field4").innerHTML = "-";   
-            document.getElementById("field5").innerHTML = "-";   
-            document.getElementById("field6").innerHTML = "-";   
-            document.getElementById("field7").innerHTML = "-";   
-            document.getElementById("field8").innerHTML = "-";   
-            document.getElementById("field9").innerHTML = "-"; 
+            document.getElementById("field1").innerHTML = emptyField; 
+            document.getElementById("field2").innerHTML = emptyField;   
+            document.getElementById("field3").innerHTML = emptyField;   
+            document.getElementById("field4").innerHTML = emptyField;   
+            document.getElementById("field5").innerHTML = emptyField;   
+            document.getElementById("field6").innerHTML = emptyField;   
+            document.getElementById("field7").innerHTML = emptyField;   
+            document.getElementById("field8").innerHTML = emptyField;   
+            document.getElementById("field9").innerHTML = emptyField; 
             
-            for(var i = 0; i < fieldArray.length; i++)
+            for(var i = 0; i < 9; i++)
             {
-                fieldArray[i] = noValue;
+                fieldArray[i] = emptyField;
             }
         };
 
@@ -112,51 +122,113 @@ font-size: 2em;
         field = number;
         if(field == 0)
         {
+            if(fieldArray[0] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field1").innerHTML = value; 
             fieldArray[0] = value;  
         }
         else if(field == 1)
         {
+            if(fieldArray[1] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field2").innerHTML = value; 
             fieldArray[1] = value;   
         }
         else if(field == 2)
-        {
+        {   
+            if(fieldArray[2] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field3").innerHTML = value;
             fieldArray[2] = value;    
         }
         else if(field == 3)
         {
+            if(fieldArray[3] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+
             document.getElementById("field4").innerHTML = value;
             fieldArray[3] = value;    
         }
         else if(field == 4)
         {
+            if(fieldArray[4] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field5").innerHTML = value;
             fieldArray[4] = value;    
         }
         else if(field == 5)
         {
+            if(fieldArray[5] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field6").innerHTML = value;
             fieldArray[5] = value;    
         }
         else if(field == 6)
         {
+            if(fieldArray[6] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field7").innerHTML = value; 
             fieldArray[6] = value;   
         }
         else if(field == 7)
         {
+            if(fieldArray[7] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field8").innerHTML = value; 
             fieldArray[7] = value;   
         }
         else if(field == 8)
         {
+            if(fieldArray[8] != emptyField)
+            {
+                alert("Nur auf leere Felder klicken!")
+                return;
+            }
+            
             document.getElementById("field9").innerHTML = value; 
             fieldArray[8] = value;   
         } 
-        
+        checkIfPlayerWinns();
         count++;
+        
+        //document.getElementById("player").innerHTML = "Player"+ player+ "ist am zug"; 
+        getPlayerIstAmZug();
+        
+    };
+
+    function getPlayerIstAmZug()
+    {
         if(player == 1)
         {
             player = " 2 ";
@@ -164,9 +236,10 @@ font-size: 2em;
         {
             player = " 1 ";
         }
+        
         document.getElementById("player").innerHTML = "Player"+ player+ "ist am zug"; 
-        checkIfPlayerWinns();
-    };
+    }
+
     function checkIfPlayerWinns()
     {
         // Zeilen
@@ -176,13 +249,12 @@ font-size: 2em;
             if(fieldArray[i]== player1Sign && fieldArray[i+1]== player1Sign && fieldArray[i+2] ==player1Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
             }
             else if(fieldArray[i]== player2Sign && fieldArray[i+1]== player2Sign && fieldArray[i+2] ==player2Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
             }
+            
             i = i+3;
         };
 
@@ -193,89 +265,38 @@ font-size: 2em;
             if(fieldArray[j]== player1Sign && fieldArray[j+3]== player1Sign && fieldArray[j+6] ==player1Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
             }
             else if(fieldArray[j]== player2Sign && fieldArray[j+3]== player2Sign && fieldArray[j+6] ==player2Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
             }
+
             j++; 
         };
 
         // Diagonal
-        if(fieldArray[0]== player1Sign && fieldArray[0+4]== player1Sign && fieldArray[0+8] ==player1Sign)
+        var k = 0;
+        while(k <= 2)
         {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
-        }
-        else if(fieldArray[0]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[0+8] ==player2Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
-        }
-        else if(fieldArray[2]== player1Sign && fieldArray[0+4]== player1Sign && fieldArray[0+6] ==player1Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
-        }
-        else if(fieldArray[2]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[0+6] ==player2Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
-        }
-        
-        
-        /*
-        for(var i = 0; i < fieldArray.length-6; i++)
-        {
-            if(fieldArray[i]== player1Sign && fieldArray[i+1]== player1Sign && fieldArray[i+2] ==player1Sign)
+            if(fieldArray[k]== player1Sign && fieldArray[k+4]== player1Sign && fieldArray[8-k] ==player1Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+                //document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
             }
-            else if(fieldArray[i]== player2Sign && fieldArray[i+1]== player2Sign && fieldArray[i+2] ==player2Sign)
+            else if(fieldArray[k]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[8-k] ==player2Sign)
             {
                 gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+                //document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
             }
-            else if(fieldArray[i]== player1Sign && fieldArray[i+3]== player1Sign && fieldArray[i+6] ==player1Sign)
-            {
-                gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
-            }
-            else if(fieldArray[i]== player2Sign && fieldArray[i+3]== player2Sign && fieldArray[i+6] ==player2Sign)
-            {
-                gameEnds = true;
-                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
-            }
+            
+            k = k + 2;
         };
 
-        if(fieldArray[0]== player1Sign && fieldArray[4]== player1Sign && fieldArray[8] ==player1Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
-        }
-        else if(fieldArray[0]== player2Sign && fieldArray[4]== player2Sign && fieldArray[8] ==player2Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
-        } 
-        
-        if(fieldArray[2]== player1Sign && fieldArray[4]== player1Sign && fieldArray[6] ==player1Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
-        }
-        else if(fieldArray[2]== player2Sign && fieldArray[4]== player2Sign && fieldArray[6] == player2Sign)
-        {
-            gameEnds = true;
-            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
-        } */
         if(gameEnds)
         {
+            document.getElementById("playerWins").innerHTML = "Player" + player + "hat gewonnen!"; 
             $("#playerWins").css("visibility", "visible"); 
-        } 
+        }
     };
     </script>
 
