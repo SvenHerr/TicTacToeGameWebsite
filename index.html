@@ -25,7 +25,13 @@ button
 {
 margin: 1em;
 font-size: 2em;
-        
+     visibility: visible;   
+}
+
+#playerWins
+{
+    font-size: 3em;
+    color: red;
 }
     </style>
     
@@ -44,16 +50,31 @@ font-size: 2em;
             <div id = "field9" class="grid-item" onclick="setField(8)">-</div>
         </div>
         <button id="btn-newGame">Neues Spiel</button>
+        <label id="player">Player 1 ist am zug</label><br>
+        <label id="playerWins"></label>
 
     </body>
 
     <script>
     var field = -1;
+    var fieldArray = []; 
+    var noValue = "-"; 
+    var count = 0;  
+    var gameEnds = false;
+    const player1Sign = "X";
+    const player2Sign = "O";
+
+    
     $("#btn-newGame").click(function()
     {
         setNewGame();
     });
-        function setNewGame(){
+        function setNewGame()
+        {
+            count = 0;
+            gameEnds = false;
+            $("#playerWins").css("visibility", "hidden");
+
             document.getElementById("field1").innerHTML = "-"; 
             document.getElementById("field2").innerHTML = "-";   
             document.getElementById("field3").innerHTML = "-";   
@@ -62,49 +83,209 @@ font-size: 2em;
             document.getElementById("field6").innerHTML = "-";   
             document.getElementById("field7").innerHTML = "-";   
             document.getElementById("field8").innerHTML = "-";   
-            document.getElementById("field9").innerHTML = "-";   
+            document.getElementById("field9").innerHTML = "-"; 
+            
+            for(var i = 0; i < fieldArray.length; i++)
+            {
+                fieldArray[i] = noValue;
+            }
+        };
 
-        }
-    function setField(number)
+    function setField(number, value)
     {
+        if(gameEnds)
+        {
+            alert("Spiel ist beendet. Bitte Neues Spiel klicken!");
+            return;
+        }
+
+        if(count % 2 == 0)
+        {
+            value = player1Sign;
+            player = " 1 ";
+        }else
+        {
+           value = player2Sign  ;
+           player = " 2 ";
+        }
+        
         field = number;
         if(field == 0)
         {
-            document.getElementById("field1").innerHTML = "X";   
+            document.getElementById("field1").innerHTML = value; 
+            fieldArray[0] = value;  
         }
         else if(field == 1)
         {
-            document.getElementById("field2").innerHTML = "X";   
+            document.getElementById("field2").innerHTML = value; 
+            fieldArray[1] = value;   
         }
         else if(field == 2)
         {
-            document.getElementById("field3").innerHTML = "X";   
+            document.getElementById("field3").innerHTML = value;
+            fieldArray[2] = value;    
         }
         else if(field == 3)
         {
-            document.getElementById("field4").innerHTML = "X";   
+            document.getElementById("field4").innerHTML = value;
+            fieldArray[3] = value;    
         }
         else if(field == 4)
         {
-            document.getElementById("field5").innerHTML = "X";   
+            document.getElementById("field5").innerHTML = value;
+            fieldArray[4] = value;    
         }
         else if(field == 5)
         {
-            document.getElementById("field6").innerHTML = "X";   
+            document.getElementById("field6").innerHTML = value;
+            fieldArray[5] = value;    
         }
         else if(field == 6)
         {
-            document.getElementById("field7").innerHTML = "X";   
+            document.getElementById("field7").innerHTML = value; 
+            fieldArray[6] = value;   
         }
         else if(field == 7)
         {
-            document.getElementById("field8").innerHTML = "X";   
+            document.getElementById("field8").innerHTML = value; 
+            fieldArray[7] = value;   
         }
         else if(field == 8)
         {
-            document.getElementById("field9").innerHTML = "X";   
+            document.getElementById("field9").innerHTML = value; 
+            fieldArray[8] = value;   
         } 
+        
+        count++;
+        if(player == 1)
+        {
+            player = " 2 ";
+        }else
+        {
+            player = " 1 ";
+        }
+        document.getElementById("player").innerHTML = "Player"+ player+ "ist am zug"; 
+        checkIfPlayerWinns();
     };
+    function checkIfPlayerWinns()
+    {
+        var countPlayer1D = 0;
+		var countPlayer2D = 0;
+		var countPlayer1Z = 0;
+		var countPlayer2Z = 0;
+		var countPlayer1S = 0;
+		var countPlayer2S = 0;
+        
+        // Zeilen
+        var i = 0;
+        while(i < 9)
+        {
+            if(fieldArray[i]== player1Sign && fieldArray[i+1]== player1Sign && fieldArray[i+2] ==player1Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+            }
+            else if(fieldArray[i]== player2Sign && fieldArray[i+1]== player2Sign && fieldArray[i+2] ==player2Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+            }
+            i = i+3;
+        };
+
+        // Spalten
+        var j = 0;
+        while(j < 3)
+        {
+            if(fieldArray[j]== player1Sign && fieldArray[j+3]== player1Sign && fieldArray[j+6] ==player1Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+            }
+            else if(fieldArray[j]== player2Sign && fieldArray[j+3]== player2Sign && fieldArray[j+6] ==player2Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+            }
+            j++; 
+        };
+
+        // Diagonal
+        if(fieldArray[0]== player1Sign && fieldArray[0+4]== player1Sign && fieldArray[0+8] ==player1Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+        }
+        else if(fieldArray[0]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[0+8] ==player2Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+        }
+        else if(fieldArray[2]== player1Sign && fieldArray[0+4]== player1Sign && fieldArray[0+6] ==player1Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+        }
+        else if(fieldArray[2]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[0+6] ==player2Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+        }
+        
+        
+        /*
+        for(var i = 0; i < fieldArray.length-6; i++)
+        {
+            if(fieldArray[i]== player1Sign && fieldArray[i+1]== player1Sign && fieldArray[i+2] ==player1Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+            }
+            else if(fieldArray[i]== player2Sign && fieldArray[i+1]== player2Sign && fieldArray[i+2] ==player2Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+            }
+            else if(fieldArray[i]== player1Sign && fieldArray[i+3]== player1Sign && fieldArray[i+6] ==player1Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+            }
+            else if(fieldArray[i]== player2Sign && fieldArray[i+3]== player2Sign && fieldArray[i+6] ==player2Sign)
+            {
+                gameEnds = true;
+                document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+            }
+        };
+
+        if(fieldArray[0]== player1Sign && fieldArray[4]== player1Sign && fieldArray[8] ==player1Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+        }
+        else if(fieldArray[0]== player2Sign && fieldArray[4]== player2Sign && fieldArray[8] ==player2Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+        } 
+        
+        if(fieldArray[2]== player1Sign && fieldArray[4]== player1Sign && fieldArray[6] ==player1Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
+        }
+        else if(fieldArray[2]== player2Sign && fieldArray[4]== player2Sign && fieldArray[6] == player2Sign)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
+        } */
+        if(gameEnds)
+        {
+            $("#playerWins").css("visibility", "visible"); 
+        } 
+        
+    };
+
     </script>
 
 </html>
