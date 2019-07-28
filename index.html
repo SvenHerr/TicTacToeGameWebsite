@@ -63,7 +63,7 @@ label
     var field = -1;
     var fieldArray = []; 
     var emptyField = "-"; 
-    var count = 0;  
+    var count;  
     var gameEnds = false;
     var player;
     const player1Sign = "X";
@@ -81,6 +81,7 @@ label
         function setNewGame()
         {
             count = 0;
+            player = 0 ;
             getPlayerIstAmZug();
             gameEnds = false;
             $("#playerWins").css("visibility", "hidden");
@@ -112,11 +113,10 @@ label
         if(count % 2 == 0)
         {
             value = player1Sign;
-            player = " 1 ";
-        }else
+        }
+        else
         {
-           value = player2Sign  ;
-           player = " 2 ";
+           value = player2Sign;
         }
         
         field = number;
@@ -222,9 +222,7 @@ label
         checkIfPlayerWinns();
         count++;
         
-        //document.getElementById("player").innerHTML = "Player"+ player+ "ist am zug"; 
         getPlayerIstAmZug();
-        
     };
 
     function getPlayerIstAmZug()
@@ -232,11 +230,12 @@ label
         if(player == 1)
         {
             player = " 2 ";
-        }else
+        }
+        else
         {
             player = " 1 ";
         }
-        
+
         document.getElementById("player").innerHTML = "Player"+ player+ "ist am zug"; 
     }
 
