@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Example Name </title>
+        <title>TicTacToe Game</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <style>
 .grid-container 
@@ -169,13 +169,6 @@ font-size: 2em;
     };
     function checkIfPlayerWinns()
     {
-        var countPlayer1D = 0;
-		var countPlayer2D = 0;
-		var countPlayer1Z = 0;
-		var countPlayer2Z = 0;
-		var countPlayer1S = 0;
-		var countPlayer2S = 0;
-        
         // Zeilen
         var i = 0;
         while(i < 9)
@@ -283,9 +276,7 @@ font-size: 2em;
         {
             $("#playerWins").css("visibility", "visible"); 
         } 
-        
     };
-
     </script>
 
 </html>
