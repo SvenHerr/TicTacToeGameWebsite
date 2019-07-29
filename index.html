@@ -36,7 +36,8 @@ label
     font-size: 3em;
     color: red;
 }
-    </style>
+
+</style>
     
     </head>
     <h1>TicTacToe</h1>
@@ -55,7 +56,10 @@ label
         </div>
         <button id="btn-newGame">Neues Spiel</button>
         <label id="player">Player 1 ist am zug</label><br>
-        <label id="playerWins"></label>
+        <div>
+            <label id="playerWins"></label>
+        </div>
+        
 
     </body>
 
@@ -63,7 +67,7 @@ label
     var field = -1;
     var fieldArray = []; 
     var emptyField = "-"; 
-    var count;  
+    var count = 0;;  
     var gameEnds = false;
     var player;
     const player1Sign = "X";
@@ -280,18 +284,22 @@ label
             if(fieldArray[k]== player1Sign && fieldArray[k+4]== player1Sign && fieldArray[8-k] ==player1Sign)
             {
                 gameEnds = true;
-                //document.getElementById("playerWins").innerHTML = "Player 1 hat gewonnen!"; 
             }
             else if(fieldArray[k]== player2Sign && fieldArray[0+4]== player2Sign && fieldArray[8-k] ==player2Sign)
             {
                 gameEnds = true;
-                //document.getElementById("playerWins").innerHTML = "Player 2 hat gewonnen!"; 
             }
             
             k = k + 2;
         };
 
-        if(gameEnds)
+        if(count == 8 && gameEnds == false)
+        {
+            gameEnds = true;
+            document.getElementById("playerWins").innerHTML = "Unentschieden";
+            $("#playerWins").css("visibility", "visible"); 
+        }
+        else if(gameEnds)
         {
             document.getElementById("playerWins").innerHTML = "Player" + player + "hat gewonnen!"; 
             $("#playerWins").css("visibility", "visible"); 
